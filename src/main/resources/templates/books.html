@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Books</title>
+</head>
+<body>
+<div>
+    <tr th:each="book: ${bookList}">
+        <td th:text="${book.id}"/>
+        <td th:text="${book.title}"/>
+        <br>
+    </tr>
+</div>
+<div>
+    <h3>Dodaj ksiażkę:</h3>
+    <form action="#" th:action="@{/addBook}" th:object="${newBook}" method="post">
+        <fieldset>
+                <label>Tytuł</label>
+                    <input id="title" type="text" th:field="*{title}" />
+        </fieldset>
+                <input type="submit" id="btnAdd" value="Create"/>
+    </form>
+</div>
+</body>
+</html>
