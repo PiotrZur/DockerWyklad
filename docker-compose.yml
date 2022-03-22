@@ -1,0 +1,32 @@
+version: "3.5"
+services:
+  bd_kontener:
+    image: mysql:latest
+    restart: always
+    volumes:
+      - 'C:\Users\piozur\Desktop\Docker\mysql:/var/lib/mysql'
+    environment:
+      - MYSQL_ROOT_PASSWORD=my-secret-pw
+      - MYSQL_USER=books_app
+      - MYSQL_PASSWORD=pass
+      - MYSQL_DATABASE=books
+    ports:
+      - 3306:3306
+    networks:
+      book_siec:
+        aliases:
+          - mysql_database
+  book_kontener:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - book_siec
+    depends_on:
+      - bd_kontener
+networks:
+  book_siec:
+    external: true
